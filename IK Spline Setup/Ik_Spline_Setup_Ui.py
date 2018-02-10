@@ -8,12 +8,7 @@ def call_fun(name, base_joint, dense_chain_val, dense_divisions,
              num_ctrl_jnt, glbl_scl_chk, glbl_scl_attr):
     
     
-    #print name, "\n", base_joint, "\n", dense_chain_val, "\n", dense_divisions
-    #print curve_opn, "\n", curve_name,  "\n", simplify_curve
-    #print spans_num, "\n", stretch, "\n", scale_connect
-    #print ctrl_jnt_flag, "\n", num_ctrl_jnt
-    
-    
+   
     if name == "" or base_joint == "":
         pm.displayInfo("ik name and/or joint name input missing")
         return None
@@ -188,28 +183,10 @@ def spline_ik_setup_UI():
                                                                                      stretch_chb.getValue))
     pm.textField(scale_attr_text, edit = True, text = "", parent = global_scale_col, editable = stretch_chb.getValue(), width = 90)
     
-    #ctrl_jnt_lbl = pm.text()
-    #ctrl_jnt_num = pm.textField()
-    #ctrl_jnt_chb = pm.checkBox("control_joints", parent = ctrl_jnt_col, 
-    #                       changeCommand = lambda x: (ctrl_jnt_lbl.setEnable(ctrl_jnt_chb.getValue()),
-    #                                                  ctrl_jnt_num.setEditable(ctrl_jnt_chb.getValue())))
-    #pm.separator(style = 'single', horizontal = False, parent = ctrl_jnt_col, width = 5)
-    #pm.text(ctrl_jnt_lbl, edit=True, label = "number of joints ", parent = ctrl_jnt_col, enable = ctrl_jnt_chb.getValue())
-    #pm.textField(ctrl_jnt_num, edit=True, text = "3", parent = ctrl_jnt_col, editable = ctrl_jnt_chb.getValue())
     
     ctrl_jnt_lbl = pm.text(label = "number of control joints ", parent = ctrl_jnt_col)
     ctrl_jnt_num = pm.textField(text = "3", parent = ctrl_jnt_col, width = 50)    
     
-    '''
-    create_btn_inv = pm.text(label = "", parent = create_btn_col)
-    create_btn = pm.button(label = "create", align = "center", parent = create_btn_col, width = 100,
-                           command = lambda x: call_fun(name_text.getText(), joint_name.getText(),
-                                                        dense_chain_chb.getValue(), int(dense_div_text.getText()),
-                                                        curve_create.getSelect(), curve_text.getText(),
-                                                        curve_simple_chb.getValue(), int(spans_text.getText()),
-                                                        stretch_chb.getValue(), stretch_scale_chb.getValue(),
-                                                        ctrl_jnt_chb.getValue(), ctrl_jnt_num.getText()))
-    '''   
     
 
     create_btn_inv = pm.text(label = "", parent = create_btn_col)

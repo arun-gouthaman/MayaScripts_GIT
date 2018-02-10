@@ -45,9 +45,6 @@ def stretch_expression(**kwargs):
         exp_stretch_str = exp_stretch_str + str(jnt)+".translateX = $joint"+str(sel_jnts.index(jnt))+"_tx + $len_diff;\n"
         exp_def_stretch_str = exp_def_stretch_str + str(jnt)+".translateX = $joint"+str(sel_jnts.index(jnt))+"_tx;\n"    
     
-    #for index in range(len(sel_jnts)):
-        #exp_stretch_str = exp_stretch_str + str(sel_jnts[index])+".translateX = $joint"+str(index)+"_tx + $len_diff;\n"
-        #exp_def_stretch_str = exp_def_stretch_str + str(sel_jnts[index])+".translateX = $joint"+str(index)+"_tx;\n"
 
     
     if connect_scale:
@@ -59,7 +56,6 @@ def stretch_expression(**kwargs):
     
     init_arc_length = str(pm.getAttr(curve_length))
 
-    #string_exp_str = "if ("+control_attribute+" == 1)\n{\n"
 
     if (global_scale):
         arc_len_str = "float $arc_len = "+curve_length+"/"+global_attr+";\n"
@@ -75,7 +71,7 @@ def stretch_expression(**kwargs):
     else
     {\n"""+exp_def_stretch_str+exp_def_scale_str+\
     """}"""
-    #print string_exp_str
+
     print string_exp_str
     pm.expression(name = main_expression_name, string = string_exp_str)
     
@@ -165,7 +161,6 @@ def setup_ik_spline(**kwargs):
         rep_chain.append(end_joint)
         for index in range(len(joint_chain)):
             pm.parentConstraint(rep_chain[index], joint_chain[index], maintainOffset=False)
-            #pm.scaleConstraint(rep_chain[index], joint_chain[index], maintainOffset=False)
             pm.connectAttr(str(rep_chain[index])+".scale", str(joint_chain[index])+".scale")
         pm.select(start_jnt, hierarchy=True)
         new_chain = pm.ls(selection=True)
@@ -173,8 +168,6 @@ def setup_ik_spline(**kwargs):
     
     crv = ""
     
-    #print "START", start_jnt
-    #print "END",end_joint
     
     if auto_curve:
         ik_handle, eff, crv = pm.ikHandle(startJoint = start_jnt, createCurve = auto_curve, solver = "ikSplineSolver", 
@@ -213,7 +206,6 @@ def setup_ik_spline(**kwargs):
             ctrl_jnts = joints_along_curve(number_of_joints = ctrl_jnts, curve = crv, bind_curve_to_joint = True)
             pm.select(clear = True)
             ctr_jnt_gp = pm.group(ctrl_jnts, name = "control_joints")
-            #print "JNT NAME", ctr_jnt_gp
     
     if stretch_exp:
         pm.addAttr(ctrl_jnts[-1], longName = "Stretch", attributeType = "enum", enumName = "off:on", keyable = True)
